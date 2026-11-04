@@ -179,7 +179,7 @@ export default function GamingBehaviourClient({ data }: { data: PlatformEvolutio
         >
           <GroupedBarChart
             data={spendingChartData}
-            keys={["Free (0 INR)", "1-500 INR", "500-1000 INR", "1000-2000 INR", "2000+ INR"]}
+            keys={data.spendingCategories && data.spendingCategories.length > 0 ? data.spendingCategories : ["₹0", "₹1-500", "₹500-1500", "₹1500-5000", "₹5000+"]}
             height={280}
             layout="horizontal"
           />

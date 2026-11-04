@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Gamepad2, TrendingUp, Users, Sparkles } from "lucide-react";
+import { Gamepad2, TrendingUp, Users, Sparkles, ArrowUpRight, ArrowDownRight, Layers } from "lucide-react";
 import { GenreData } from "@/src/types/data";
 import { ChartCard, SectionHeading, CaveatBox, KPICard } from "@/src/components/ui/Cards";
 import { FreqBarChart, CohortBarChart } from "@/src/components/charts/Charts";
@@ -198,15 +198,63 @@ export default function GenresClient({ data }: GenresClientProps) {
           </ChartCard>
 
           <div className="border border-[#EAE3D6] bg-white rounded-xl p-6 shadow-sm flex flex-col justify-between">
-            <div>
-              <h3 className="text-base font-bold text-[#231C18] mb-2 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#722F37]" /> Analytical Takeaways
-              </h3>
-              <p className="text-xs text-[#554A43] leading-relaxed space-y-2">
-                Younger gamers (&lt;22) demonstrate higher propensity towards competitive multiplayer and sandbox titles, whereas gamers aged 22 and older show stronger sustained attachment to RPGs and strategy experiences.
-              </p>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#EAE3D6]">
+                <h3 className="text-base font-bold text-[#231C18] flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#722F37]" /> Analytical Takeaways
+                </h3>
+                <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#FAF5F6] text-[#722F37] border border-[#E8CDD3]">
+                  Key Syntheses
+                </span>
+              </div>
+
+              {/* Takeaway 1: Cohort Polarization */}
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#EAE3D6] space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#722F37] flex items-center gap-1.5">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#722F37]" /> Cohort Polarization
+                  </span>
+                  <span className="text-[11px] font-mono font-semibold text-[#8C6D46]">
+                    Action (+22.8%) vs RPG (-23.4%)
+                  </span>
+                </div>
+                <p className="text-xs text-[#554A43] leading-relaxed">
+                  Younger gamers (&lt;22) prioritize fast-paced Action (29.0%) and Battle Royale, whereas gamers aged 22+ demonstrate strong sustained attachment to narrative RPGs (27.7%) and strategic loops.
+                </p>
+              </div>
+
+              {/* Takeaway 2: Format Fatigue */}
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#EAE3D6] space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#B8533B] flex items-center gap-1.5">
+                    <ArrowDownRight className="w-3.5 h-3.5 text-[#B8533B]" /> Disengagement & Format Fatigue
+                  </span>
+                  <span className="text-[11px] font-mono font-semibold text-[#B8533B]">
+                    Puzzle (24.0%) & Sports (15.3%)
+                  </span>
+                </div>
+                <p className="text-xs text-[#554A43] leading-relaxed">
+                  Static linear puzzle models and repetitive seasonal sports releases show significant reported disengagement, as player hours shift toward dynamic multiplayer and emergent open worlds.
+                </p>
+              </div>
+
+              {/* Takeaway 3: Emerging Growth Vectors */}
+              <div className="p-3.5 rounded-lg bg-[#FAF7F2] border border-[#EAE3D6] space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#4E6853] flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-[#4E6853]" /> Future Growth Frontier
+                  </span>
+                  <span className="text-[11px] font-mono font-semibold text-[#4E6853]">
+                    61 Mentions AI-Generated
+                  </span>
+                </div>
+                <p className="text-xs text-[#554A43] leading-relaxed">
+                  AI-driven procedural content and VR/AR immersive environments dominate anticipated growth, outstripping traditional hyper-casual mobile formulas over a 3–5 year horizon.
+                </p>
+              </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-[#EAE3D6]">
+
+            <div className="mt-4 pt-3 border-t border-[#EAE3D6]">
               <span className="text-[11px] text-[#73675E] block font-mono">
                 Statistical Significance: Mann-Whitney U & Chi-square cohort validations detailed in Hypothesis Lab.
               </span>
