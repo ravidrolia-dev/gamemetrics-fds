@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Brain, AlertTriangle, CheckCircle, Info, Download, Terminal, Cpu } from "lucide-react";
+import { Brain, AlertTriangle, CheckCircle, Info, Download, Cpu, Monitor, Gamepad2, Smartphone, Cloud, ArrowRight } from "lucide-react";
 import { PredictionData, ModelResult } from "@/src/types/data";
 import { ChartCard, SectionHeading, CaveatBox } from "@/src/components/ui/Cards";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
@@ -157,6 +157,30 @@ function ModelCard({ model, isBest }: { model: ModelResult; isBest: boolean }) {
   );
 }
 
+function getPlatformIcon(platform: string) {
+  const p = platform.toLowerCase();
+  if (p.includes("pc")) return <Monitor className="w-4 h-4 text-[#722F37]" />;
+  if (p.includes("console")) return <Gamepad2 className="w-4 h-4 text-[#8C6D46]" />;
+  if (p.includes("mobile")) return <Smartphone className="w-4 h-4 text-[#4E6853]" />;
+  return <Cloud className="w-4 h-4 text-[#2B5B84]" />;
+}
+
+function getPlatformBadgeColor(platform: string) {
+  const p = platform.toLowerCase();
+  if (p.includes("pc")) return "bg-[#F8EDEF] text-[#722F37] border-[#E8CDD3]";
+  if (p.includes("console")) return "bg-[#FAF3EB] text-[#8C6D46] border-[#E8DFD4]";
+  if (p.includes("mobile")) return "bg-[#EEF4EF] text-[#4E6853] border-[#D3E2D5]";
+  return "bg-[#EDF3F8] text-[#2B5B84] border-[#D0E0EC]";
+}
+
+function getPlatformBarColor(platform: string) {
+  const p = platform.toLowerCase();
+  if (p.includes("pc")) return "#722F37";
+  if (p.includes("console")) return "#8C6D46";
+  if (p.includes("mobile")) return "#4E6853";
+  return "#2B5B84";
+}
+
 // Exact Mathematical Scikit-Learn Model Inference Component
 function ScikitLearnPredictor({ data }: { data: PredictionData }) {
   const [formState, setFormState] = useState<Record<string, string>>({
@@ -185,6 +209,8 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
     probability: number;
     logOdds: number;
     isSwitch: boolean;
+    topDestination: string;
+    destinationProbabilities: { platform: string; probability: number }[];
   }>(null);
 
   const predict = () => {
@@ -235,11 +261,61 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
     const prob = 1 / (1 + Math.exp(-z));
     const isSwitch = prob >= 0.5;
 
+    // Stage 2: Destination Platform Softmax (Multi-class)
+    let destinationProbabilities: { platform: string; probability: number }[] = [];
+    let topDestination = "PC";
+
+    const destModel = (trainedInference as any).destinationModel;
+    if (destModel && destModel.classes) {
+      const destClasses = destModel.classes as string[];
+      const destIntercepts = destModel.intercepts as Record<string, number>;
+      const destScales = destModel.scalerScales as Record<string, number>;
+      const destMeans = destModel.scalerMeans as Record<string, number>;
+      const destNumWeights = destModel.numericWeights as Record<string, Record<string, number>>;
+      const destCatWeights = destModel.categoricalWeights as Record<string, Record<string, Record<string, number>>>;
+
+      const scores: Record<string, number> = {};
+      let maxScore = -Infinity;
+
+      for (const cls of destClasses) {
+        let zCls = destIntercepts[cls] ?? 0;
+        for (const [key, val] of Object.entries(numInputs)) {
+          const mean = destMeans[key] ?? 0;
+          const scale = destScales[key] ?? 1;
+          const weight = destNumWeights[cls]?.[key] ?? 0;
+          zCls += weight * ((val - mean) / scale);
+        }
+        for (const [catName, selectedVal] of Object.entries(catInputs)) {
+          const weight = destCatWeights[cls]?.[catName]?.[selectedVal] ?? 0;
+          zCls += weight;
+        }
+        scores[cls] = zCls;
+        if (zCls > maxScore) maxScore = zCls;
+      }
+
+      let sumExp = 0;
+      const expScores: Record<string, number> = {};
+      for (const cls of destClasses) {
+        const expVal = Math.exp(scores[cls] - maxScore);
+        expScores[cls] = expVal;
+        sumExp += expVal;
+      }
+
+      destinationProbabilities = destClasses.map((cls) => ({
+        platform: cls,
+        probability: sumExp > 0 ? expScores[cls] / sumExp : 0,
+      })).sort((a, b) => b.probability - a.probability);
+
+      topDestination = destinationProbabilities[0]?.platform || "PC";
+    }
+
     setResult({
       label: isSwitch ? "Plans to Switch Platform (Class 1)" : "No Plans to Switch Platform (Class 0)",
       probability: prob,
       logOdds: z,
       isSwitch,
+      topDestination,
+      destinationProbabilities,
     });
   };
 
@@ -261,14 +337,14 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
         <div>
           <div className="text-base font-bold text-[#231C18] flex items-center gap-2">
             <Cpu className="w-4 h-4 text-[#722F37]" />
-            Live Scikit-Learn Model Inference Engine
+            Live Scikit-Learn Multi-Stage Inference Engine
           </div>
           <p className="text-xs text-[#73675E] mt-0.5">
-            Calculates exact mathematical logistic regression log-odds and sigmoid posterior probability derived from survey training ($N=205$).
+            Stage 1: Logistic Regression log-odds for switch propensity. Stage 2: Multinomial Softmax predicting destination platform ($N=205$).
           </p>
         </div>
         <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#FAF7F2] text-[#8C6D46] border border-[#E8DFD4] font-medium">
-          Accuracy: {(trainedInference.accuracy * 100).toFixed(1)}% | Macro F1: {(trainedInference.macroF1 * 100).toFixed(1)}%
+          Stage 1 F1: {(trainedInference.macroF1 * 100).toFixed(1)}% | Stage 2 Accuracy: {(((trainedInference as any).destinationModel?.accuracy || 0.69) * 100).toFixed(1)}%
         </span>
       </div>
 
@@ -328,37 +404,122 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
           onClick={predict}
           className="px-5 py-2.5 rounded-lg bg-[#722F37] hover:bg-[#5B1C25] text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-2"
         >
-          <Brain className="w-3.5 h-3.5" /> Execute Model Scoring
+          <Brain className="w-3.5 h-3.5" /> Execute Multi-Stage Scoring
         </button>
         <span className="text-[11px] text-[#73675E]">
-          Model: Scikit-learn LogisticRegression (L2, Balanced weights)
+          Two-Stage Architecture: Binary Churn LogisticRegression + Multi-Class Destination Softmax
         </span>
       </div>
 
       {result && (
-        <div className="mt-4 rounded-xl bg-[#FAF5F6] border border-[#E8CDD3] p-4 space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <CheckCircle className={`w-5 h-5 ${result.isSwitch ? "text-[#722F37]" : "text-[#B8533B]"}`} />
-              <span className="text-base font-bold text-[#231C18]">{result.label}</span>
+        <div className="mt-5 space-y-4">
+          {/* Stage 1: Churn / Switch Propensity Result */}
+          <div className="rounded-xl bg-[#FAF5F6] border border-[#E8CDD3] p-4 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <CheckCircle className={`w-5 h-5 ${result.isSwitch ? "text-[#722F37]" : "text-[#B8533B]"}`} />
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[#73675E]">
+                    Stage 1: Platform Migration Propensity
+                  </div>
+                  <span className="text-base font-bold text-[#231C18]">{result.label}</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="text-xs text-[#73675E] mr-2">Switch Probability:</span>
+                <span className="text-lg font-bold text-[#722F37]">{(result.probability * 100).toFixed(1)}%</span>
+              </div>
             </div>
-            <div className="text-right">
-              <span className="text-xs text-[#73675E] mr-2">Switch Probability:</span>
-              <span className="text-lg font-bold text-[#722F37]">{(result.probability * 100).toFixed(1)}%</span>
+
+            <div className="w-full bg-[#EAE3D6] rounded-full h-2 overflow-hidden">
+              <div
+                className={`h-full transition-all duration-300 ${result.isSwitch ? "bg-[#722F37]" : "bg-[#B8533B]"}`}
+                style={{ width: `${result.probability * 100}%` }}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-[#73675E] font-mono pt-1">
+              <span>Log-Odds Score (z): {result.logOdds.toFixed(4)}</span>
+              <span>Sigmoid Threshold: 0.50</span>
             </div>
           </div>
 
-          <div className="w-full bg-[#EAE3D6] rounded-full h-2 overflow-hidden">
-            <div
-              className={`h-full transition-all duration-300 ${result.isSwitch ? "bg-[#722F37]" : "bg-[#B8533B]"}`}
-              style={{ width: `${result.probability * 100}%` }}
-            />
-          </div>
+          {/* Stage 2: Destination Platform Prediction (Conditional Gate) */}
+          {result.isSwitch ? (
+            <div className="rounded-xl bg-white border border-[#DDD3C3] p-5 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#EAE3D6]">
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[#722F37] flex items-center gap-1.5">
+                    <ArrowRight className="w-3 h-3 text-[#722F37]" /> Stage 2: Destination Platform Recommendation
+                  </div>
+                  <div className="text-sm font-bold text-[#231C18] mt-0.5 flex items-center gap-2">
+                    Predicted Switch Target: <span className="text-base font-extrabold text-[#722F37]">{result.topDestination}</span>
+                  </div>
+                </div>
 
-          <div className="flex items-center justify-between text-[11px] text-[#73675E] font-mono pt-1">
-            <span>Log-Odds Score (z): {result.logOdds.toFixed(4)}</span>
-            <span>Sigmoid Threshold: 0.50</span>
-          </div>
+                <div className={`px-3 py-1 rounded-full text-xs font-semibold border flex items-center gap-1.5 ${getPlatformBadgeColor(result.topDestination)}`}>
+                  {getPlatformIcon(result.topDestination)}
+                  <span>Top Choice: {result.topDestination}</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-[#554A43] leading-relaxed">
+                Stage 1 identified that this user <strong>plans to switch</strong> away from <strong>{formState["Current Platform"]}</strong>. Stage 2 evaluates their gameplay habits, tech openness, and motivation to determine that they are most likely to move toward <strong>{result.topDestination}</strong>.
+              </p>
+
+              {/* Destination Probabilities Breakdown */}
+              <div className="space-y-2 pt-1">
+                <div className="text-xs font-semibold text-[#231C18] mb-1">
+                  Destination Platform Probability Distribution:
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {result.destinationProbabilities.map((item) => (
+                    <div key={item.platform} className="p-3 rounded-lg bg-[#FAF7F2] border border-[#EAE3D6] space-y-1.5">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-[#231C18] flex items-center gap-1.5">
+                          {getPlatformIcon(item.platform)}
+                          {item.platform}
+                        </span>
+                        <span className="font-mono font-bold" style={{ color: getPlatformBarColor(item.platform) }}>
+                          {(item.probability * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-[#EAE3D6] rounded-full h-1.5 overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-300"
+                          style={{
+                            width: `${item.probability * 100}%`,
+                            backgroundColor: getPlatformBarColor(item.platform)
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-xl bg-[#FAF7F2] border border-[#EAE3D6] p-5 shadow-sm space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#EAE3D6]">
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[#4E6853] flex items-center gap-1.5">
+                    <CheckCircle className="w-3 h-3 text-[#4E6853]" /> Stage 2: Destination Platform Gate (Inactive)
+                  </div>
+                  <div className="text-sm font-bold text-[#231C18] mt-0.5">
+                    Final Decision: <span className="text-base font-extrabold text-[#4E6853]">Retained on {formState["Current Platform"]}</span>
+                  </div>
+                </div>
+
+                <span className="px-3 py-1 rounded-full text-xs font-semibold border bg-[#EEF4EF] text-[#4E6853] border-[#D3E2D5] flex items-center gap-1.5">
+                  No Switch Required
+                </span>
+              </div>
+
+              <p className="text-xs text-[#554A43] leading-relaxed">
+                Because Stage 1 predicted that this gamer has <strong>no plans to switch</strong> (Switch Probability: {(result.probability * 100).toFixed(1)}% &lt; 50%), Stage 2 destination classification is <strong>not triggered</strong>. The player remains happily settled on their current platform (<strong>{formState["Current Platform"]}</strong>).
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -402,17 +563,33 @@ export default function PredictionClient({ data }: { data: PredictionData }) {
             href="/models/random_forest_model.pkl"
             download="random_forest_model.pkl"
             className="px-3.5 py-2 rounded-xl bg-white border border-[#E8CDD3] hover:border-[#722F37] text-xs font-medium text-[#722F37] flex items-center gap-2 transition-all shadow-sm hover:bg-[#FAF5F6]"
-            title="Download trained Random Forest Pipeline (.pkl)"
+            title="Download Stage 1 Switch Propensity Random Forest (.pkl)"
           >
-            <Download className="w-3.5 h-3.5" /> Random Forest (.pkl)
+            <Download className="w-3.5 h-3.5" /> Stage 1 RF (.pkl)
           </a>
           <a
             href="/models/logistic_regression_model.pkl"
             download="logistic_regression_model.pkl"
             className="px-3.5 py-2 rounded-xl bg-white border border-[#EAE3D6] hover:border-[#8C6D46] text-xs font-medium text-[#8C6D46] flex items-center gap-2 transition-all shadow-sm hover:bg-[#FAF7F2]"
-            title="Download trained Logistic Regression Pipeline (.pkl)"
+            title="Download Stage 1 Switch Propensity Logistic Regression (.pkl)"
           >
-            <Download className="w-3.5 h-3.5" /> Logistic Reg. (.pkl)
+            <Download className="w-3.5 h-3.5" /> Stage 1 Log. Reg. (.pkl)
+          </a>
+          <a
+            href="/models/destination_random_forest.pkl"
+            download="destination_random_forest.pkl"
+            className="px-3.5 py-2 rounded-xl bg-white border border-[#D3E2D5] hover:border-[#4E6853] text-xs font-medium text-[#4E6853] flex items-center gap-2 transition-all shadow-sm hover:bg-[#EEF4EF]"
+            title="Download Stage 2 Platform Destination Random Forest (.pkl)"
+          >
+            <Download className="w-3.5 h-3.5" /> Stage 2 Dest. RF (.pkl)
+          </a>
+          <a
+            href="/models/destination_logistic_regression.pkl"
+            download="destination_logistic_regression.pkl"
+            className="px-3.5 py-2 rounded-xl bg-white border border-[#D0E0EC] hover:border-[#2B5B84] text-xs font-medium text-[#2B5B84] flex items-center gap-2 transition-all shadow-sm hover:bg-[#EDF3F8]"
+            title="Download Stage 2 Platform Destination Logistic Regression (.pkl)"
+          >
+            <Download className="w-3.5 h-3.5" /> Stage 2 Dest. Softmax (.pkl)
           </a>
         </div>
       </div>
@@ -483,50 +660,6 @@ export default function PredictionClient({ data }: { data: PredictionData }) {
 
       {/* Live Exact Model Inference Section */}
       <ScikitLearnPredictor data={data} />
-
-      {/* Python Model Loading & Deployment Snippet */}
-      <div className="border border-[#EAE3D6] bg-white rounded-xl p-6 shadow-sm">
-        <div className="flex items-center gap-2 text-sm font-bold text-[#231C18] mb-2">
-          <Terminal className="w-4 h-4 text-[#722F37]" />
-          Loading the Trained .pkl Pipeline in Python
-        </div>
-        <p className="text-xs text-[#73675E] mb-3">
-          The models are serialized with scikit-learn & joblib and include both the preprocessing pipeline (StandardScaler + OneHotEncoder) and classifier.
-        </p>
-        <pre className="p-4 rounded-xl bg-[#FAF7F2] border border-[#EAE3D6] text-xs font-mono text-[#382F2A] overflow-x-auto leading-relaxed">
-{`import joblib
-import pandas as pd
-
-# 1. Load the serialized pipeline (.pkl file)
-pipeline = joblib.load("models/random_forest_model.pkl")
-
-# 2. Predict on new survey observations
-new_gamer = pd.DataFrame([{
-    "What is your age?": 21,
-    "How many years have you been gaming?": 8,
-    "On average, how many hours do you play PER WEEKDAY?": 4.0,
-    "On average, how many hours do you play PER WEEKEND?": 6.0,
-    "How important is gaming in your daily routine?": 4.0,
-    "How willing are you to practice/improve your skills?": 4.0,
-    "How interested are you in the future of cloud gaming?": 4.0,
-    "How open are you to trying new gaming technology in general?": 5.0,
-    "Gender": "Male",
-    "Occupation": "Student",
-    "What was your FIRST gaming platform?": "Mobile",
-    "What is your CURRENT primary gaming platform?": "PC",
-    "How would you rate your gaming experience level?": "Advanced",
-    "How often do you play games?": "Daily",
-    "What is the main reason you play games?": "Competition",
-    "What type of gamer would you describe yourself as?": "Competitive gamer",
-    "Have you tried cloud gaming (e.g., GeForce Now, Xbox Cloud)?": "Yes",
-    "Have you used any AI-based gaming features (AI NPCs, AI-generated content, etc.)?": "Yes"
-}])
-
-prediction = pipeline.predict(new_gamer)[0]          # 0 = No switch, 1 = Plans switch
-probabilities = pipeline.predict_proba(new_gamer)[0] # [P(0), P(1)]
-print(f"Prediction: {prediction}, Probability of switching: {probabilities[1]:.2%}")`}
-        </pre>
-      </div>
 
       {/* Caveat Box */}
       <CaveatBox items={data.limitations} />

@@ -91,22 +91,353 @@
       "Yes": 0.2813524685724084
     }
   },
+  "destinationModel": {
+    "modelName": "Multinomial Logistic Regression (Destination Choice)",
+    "classes": [
+      "Cloud / Next-Gen",
+      "Console",
+      "Mobile",
+      "PC"
+    ],
+    "trainingSampleN": 113,
+    "accuracy": 0.6903,
+    "intercepts": {
+      "Cloud / Next-Gen": -1.0072761763819378,
+      "Console": 0.26579716487971417,
+      "Mobile": -1.5431401497871648,
+      "PC": 2.2846191612893927
+    },
+    "scalerMeans": {
+      "age": 23.0,
+      "years_gaming": 9.982300884955752,
+      "weekday_hours": 2.4398230088495576,
+      "weekend_hours": 4.025663716814159,
+      "gaming_importance": 2.5486725663716814,
+      "willingness_to_improve": 3.1327433628318584,
+      "cloud_interest": 2.6371681415929205,
+      "tech_openness": 3.433628318584071
+    },
+    "scalerScales": {
+      "age": 6.366394069748387,
+      "years_gaming": 7.374894390586221,
+      "weekday_hours": 3.2213760546524663,
+      "weekend_hours": 3.8290639527396584,
+      "gaming_importance": 1.2046455098042925,
+      "willingness_to_improve": 1.1787530893455969,
+      "cloud_interest": 1.3636361263191663,
+      "tech_openness": 1.1120904830021245
+    },
+    "numericWeights": {
+      "Cloud / Next-Gen": {
+        "age": -0.5525675556098713,
+        "years_gaming": -0.29507347410351636,
+        "weekday_hours": -0.4045782543701515,
+        "weekend_hours": 0.02460068170887132,
+        "gaming_importance": 0.27509435918869113,
+        "willingness_to_improve": -0.29152013775543517,
+        "cloud_interest": 0.17036333182207722,
+        "tech_openness": 0.5595617861298142
+      },
+      "Console": {
+        "age": -0.1233683122405376,
+        "years_gaming": -0.16594476495492322,
+        "weekday_hours": -0.08245581401216422,
+        "weekend_hours": 0.21244588783531335,
+        "gaming_importance": -0.2233401510724078,
+        "willingness_to_improve": 0.4785096730838456,
+        "cloud_interest": -0.020832468748929397,
+        "tech_openness": -0.3226449705759618
+      },
+      "Mobile": {
+        "age": 0.31557286643417976,
+        "years_gaming": 0.519759576509041,
+        "weekday_hours": 0.34118347746881,
+        "weekend_hours": -0.6644299672809438,
+        "gaming_importance": 0.01990200611283918,
+        "willingness_to_improve": 0.019154894181373436,
+        "cloud_interest": -0.21237793726184295,
+        "tech_openness": -0.2957706966497536
+      },
+      "PC": {
+        "age": 0.36036300141622896,
+        "years_gaming": -0.05874133745060138,
+        "weekday_hours": 0.14585059091350558,
+        "weekend_hours": 0.4273833977367577,
+        "gaming_importance": -0.0716562142291223,
+        "willingness_to_improve": -0.20614442950978343,
+        "cloud_interest": 0.06284707418869522,
+        "tech_openness": 0.05885388109590078
+      }
+    },
+    "categoricalWeights": {
+      "Cloud / Next-Gen": {
+        "gender": {
+          "Female": 0.20799960733696304,
+          "Male": -0.03577141051672666,
+          "Other": -0.17333727741710694,
+          "Prefer not to say": -0.0035693251912820487
+        },
+        "occupation": {
+          "Other": -0.1007485621148025,
+          "Student": -0.08510547646116463,
+          "Working professional": 0.1811756327878144
+        },
+        "first_platform": {
+          "Console": 0.440592799410599,
+          "Gaming Center": -0.009882676987385814,
+          "Mobile": -0.31964439689531016,
+          "Other": -0.025767761238398586,
+          "PC": -0.089976370077657
+        },
+        "current_platform": {
+          "Console": -0.37331393835574705,
+          "Mobile": 0.2941443493705144,
+          "Other": -0.0522165103793601,
+          "PC": 0.1267076935764397
+        },
+        "experience_level": {
+          "Beginner": -0.18400105583195933,
+          "Experienced": 0.03486274050614059,
+          "Intermediate": 0.1444599095376659
+        },
+        "gaming_frequency": {
+          "Daily": 0.4455501821773084,
+          "Few times a week": -0.2241976361192835,
+          "Occasionally": -0.03741379802816076,
+          "Weekly": -0.18861715381801622
+        },
+        "motivation": {
+          "Competitive/skill": 0.18485109700134003,
+          "Relaxation/casual": -0.5917482224622562,
+          "Social/friends": 0.1578492136041038,
+          "Story/immersion": 0.24436950606866067
+        },
+        "gamer_type": {
+          "Casual": -0.40203829052882545,
+          "Competitive": -0.13534163438421523,
+          "Social": 0.984511812869449,
+          "Story-focused": -0.4518102937445605
+        },
+        "cloud_gaming_used": {
+          "No": -0.40313340760915795,
+          "Yes": 0.39845500182100535
+        },
+        "ai_features_used": {
+          "No": 0.15225738274267825,
+          "Yes": -0.1569357885308312
+        }
+      },
+      "Console": {
+        "gender": {
+          "Female": -0.05584158043363924,
+          "Male": 0.07329562407924589,
+          "Other": 0.21260457151662912,
+          "Prefer not to say": -0.2178443525461615
+        },
+        "occupation": {
+          "Other": -0.5802817917109165,
+          "Student": 0.4462392220552548,
+          "Working professional": 0.14625683227173522
+        },
+        "first_platform": {
+          "Console": 0.7563074939499559,
+          "Gaming Center": -0.2951541306005937,
+          "Mobile": -0.3544943073351725,
+          "Other": 0.3015054397474814,
+          "PC": -0.39595023314559696
+        },
+        "current_platform": {
+          "Console": 0.1022170623106679,
+          "Mobile": -0.7627519778750783,
+          "Other": 0.21351459881329418,
+          "PC": 0.4592345793671909
+        },
+        "experience_level": {
+          "Beginner": -0.1722872392762136,
+          "Experienced": 0.1635234514951078,
+          "Intermediate": 0.02097805039718075
+        },
+        "gaming_frequency": {
+          "Daily": 0.06629738399713637,
+          "Few times a week": -0.03147020325045676,
+          "Occasionally": 0.5797535796878485,
+          "Weekly": -0.6023664978184539
+        },
+        "motivation": {
+          "Competitive/skill": -0.19576062230466604,
+          "Relaxation/casual": -0.13189144096028654,
+          "Social/friends": 0.08350744244517509,
+          "Story/immersion": 0.25635888343585184
+        },
+        "gamer_type": {
+          "Casual": -0.09759882303697064,
+          "Competitive": -0.23309146648640597,
+          "Social": -0.1407775594746064,
+          "Story-focused": 0.48368211161405794
+        },
+        "cloud_gaming_used": {
+          "No": 0.4371396515381048,
+          "Yes": -0.42492538892203074
+        },
+        "ai_features_used": {
+          "No": -0.09033089614366857,
+          "Yes": 0.10254515875974325
+        }
+      },
+      "Mobile": {
+        "gender": {
+          "Female": 0.18670602957360177,
+          "Male": 0.07700246908944966,
+          "Other": -0.11521037102673581,
+          "Prefer not to say": -0.1520134643682618
+        },
+        "occupation": {
+          "Other": -0.2550508273420705,
+          "Student": -0.14511432091156104,
+          "Working professional": 0.3966498115216852
+        },
+        "first_platform": {
+          "Console": -0.6753570441207509,
+          "Gaming Center": -0.017807824605216894,
+          "Mobile": 0.9098805615840809,
+          "Other": -0.13422163176230203,
+          "PC": -0.08600939782775603
+        },
+        "current_platform": {
+          "Console": -0.2007709619624366,
+          "Mobile": 0.5616008842791539,
+          "Other": 0.24614806609973858,
+          "PC": -0.6104933251484023
+        },
+        "experience_level": {
+          "Beginner": 0.025275493268854046,
+          "Experienced": -0.01675430236195278,
+          "Intermediate": -0.012036527638847593
+        },
+        "gaming_frequency": {
+          "Daily": 0.06816515662756371,
+          "Few times a week": -0.1319671197395285,
+          "Occasionally": -0.3063928596648212,
+          "Weekly": 0.36667948604483974
+        },
+        "motivation": {
+          "Competitive/skill": -0.21037564290425104,
+          "Relaxation/casual": 0.8328211077616618,
+          "Social/friends": -0.1637845676722303,
+          "Story/immersion": -0.4621762339171274
+        },
+        "gamer_type": {
+          "Casual": 0.5975758919074207,
+          "Competitive": 0.20447022691457714,
+          "Social": -0.25857330686274327,
+          "Story-focused": -0.5469881486912002
+        },
+        "cloud_gaming_used": {
+          "No": 0.12522051036292875,
+          "Yes": -0.12873584709487473
+        },
+        "ai_features_used": {
+          "No": 0.03386739854282489,
+          "Yes": -0.037382735274771206
+        }
+      },
+      "PC": {
+        "gender": {
+          "Female": -0.3388640564769258,
+          "Male": -0.11452668265196893,
+          "Other": 0.07594307692721365,
+          "Prefer not to say": 0.37342714210570516
+        },
+        "occupation": {
+          "Other": 0.9360811811677887,
+          "Student": -0.2160194246825285,
+          "Working professional": -0.724082276581235
+        },
+        "first_platform": {
+          "Console": -0.5215432492398038,
+          "Gaming Center": 0.3228446321931966,
+          "Mobile": -0.23574185735359757,
+          "Other": -0.1415160467467806,
+          "PC": 0.5719360010510093
+        },
+        "current_platform": {
+          "Console": 0.47186783800751614,
+          "Mobile": -0.09299325577459029,
+          "Other": -0.4074461545336726,
+          "PC": 0.02455105220477177
+        },
+        "experience_level": {
+          "Beginner": 0.33101280183931897,
+          "Experienced": -0.1816318896392957,
+          "Intermediate": -0.1534014322959986
+        },
+        "gaming_frequency": {
+          "Daily": -0.5800127228020086,
+          "Few times a week": 0.3876349591092695,
+          "Occasionally": -0.23594692199486664,
+          "Weekly": 0.4243041655916306
+        },
+        "motivation": {
+          "Competitive/skill": 0.22128516820757702,
+          "Relaxation/casual": -0.10918144433911856,
+          "Social/friends": -0.07757208837704876,
+          "Story/immersion": -0.038552155587385256
+        },
+        "gamer_type": {
+          "Casual": -0.09793877834162332,
+          "Competitive": 0.1639628739560438,
+          "Social": -0.5851609465320988,
+          "Story-focused": 0.5151163308217026
+        },
+        "cloud_gaming_used": {
+          "No": -0.1592267542918761,
+          "Yes": 0.15520623419590054
+        },
+        "ai_features_used": {
+          "No": -0.09579388514183414,
+          "Yes": 0.09177336504585897
+        }
+      }
+    },
+    "distribution": {
+      "PC": 54,
+      "Console": 33,
+      "Mobile": 17,
+      "Cloud / Next-Gen": 9
+    }
+  },
   "modelsAvailable": [
     {
-      "name": "Random Forest Classifier",
+      "name": "Random Forest (Switch Propensity)",
       "file": "random_forest_model.pkl",
       "url": "/models/random_forest_model.pkl",
-      "description": "Ensemble of 100 balanced decision trees (Gini impurity)",
+      "description": "Ensemble of 100 balanced decision trees predicting whether gamer plans to switch",
       "accuracy": 0.5122,
       "macroF1": 0.4875
     },
     {
-      "name": "Logistic Regression",
+      "name": "Logistic Regression (Switch Propensity)",
       "file": "logistic_regression_model.pkl",
       "url": "/models/logistic_regression_model.pkl",
-      "description": "L2-regularized logistic regression with balanced class weights",
+      "description": "L2-regularized logistic regression with balanced class weights (Binary)",
       "accuracy": 0.7073,
       "macroF1": 0.7071
+    },
+    {
+      "name": "Destination Random Forest (Platform Choice)",
+      "file": "destination_random_forest.pkl",
+      "url": "/models/destination_random_forest.pkl",
+      "description": "Multi-class Random Forest predicting which platform the gamer will switch to",
+      "accuracy": 0.8142,
+      "macroF1": null
+    },
+    {
+      "name": "Destination Logistic Regression (Platform Choice)",
+      "file": "destination_logistic_regression.pkl",
+      "url": "/models/destination_logistic_regression.pkl",
+      "description": "Multinomial Softmax Logistic Regression predicting destination platform",
+      "accuracy": 0.6903,
+      "macroF1": null
     }
   ]
 }
