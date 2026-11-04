@@ -1,0 +1,112 @@
+{
+  "modelName": "Logistic Regression (Class-Weighted Balanced)",
+  "trainingSampleN": 205,
+  "accuracy": 0.7073,
+  "macroF1": 0.7071,
+  "intercept": 0.22201,
+  "scalerMeans": {
+    "age": 23.99390243902439,
+    "years_gaming": 12.091463414634147,
+    "weekday_hours": 2.464634146341463,
+    "weekend_hours": 4.067073170731708,
+    "gaming_importance": 2.6890243902439024,
+    "willingness_to_improve": 3.1158536585365852,
+    "cloud_interest": 2.347560975609756,
+    "tech_openness": 3.3963414634146343
+  },
+  "scalerScales": {
+    "age": 6.963753675911759,
+    "years_gaming": 8.530300386720617,
+    "weekday_hours": 3.155362139597412,
+    "weekend_hours": 3.3779433372642584,
+    "gaming_importance": 1.285804872496921,
+    "willingness_to_improve": 1.2066855948943949,
+    "cloud_interest": 1.3506751346836539,
+    "tech_openness": 1.1614693303544248
+  },
+  "numericWeights": {
+    "age": 0.17664126551880083,
+    "years_gaming": -0.33920294497828496,
+    "weekday_hours": 0.07127599925913296,
+    "weekend_hours": -0.128221826585062,
+    "gaming_importance": -0.23089848794958331,
+    "willingness_to_improve": -0.2642893204477368,
+    "cloud_interest": 0.21894658757207008,
+    "tech_openness": 0.025102420388101877
+  },
+  "categoricalWeights": {
+    "gender": {
+      "Female": 0.35333954121362837,
+      "Male": -0.602140730919342,
+      "Other": 0.027691975220138214,
+      "Prefer not to say": 0.227978985317809
+    },
+    "occupation": {
+      "Other": -0.6246371960051521,
+      "Student": 0.5461304818820656,
+      "Working professional": 0.08537648495531841
+    },
+    "first_platform": {
+      "Console": -0.6363487345059192,
+      "Gaming Center": -0.3750307923304723,
+      "Mobile": 0.6952064880488148,
+      "Other": 0.6614991009834057,
+      "PC": -0.33845629136359706
+    },
+    "current_platform": {
+      "Console": 0.5782743968465943,
+      "Mobile": 0.5801054967728907,
+      "Other": -0.6382363578523611,
+      "PC": -0.5132737649348921
+    },
+    "experience_level": {
+      "Beginner": -0.6952731612358193,
+      "Experienced": 0.5739409674048704,
+      "Intermediate": 0.12820196466317907
+    },
+    "gaming_frequency": {
+      "Daily": 0.13374835845960703,
+      "Few times a week": 0.4399866696545698,
+      "Occasionally": -0.7281639154887576,
+      "Weekly": 0.16129865820681288
+    },
+    "motivation": {
+      "Competitive/skill": -0.42332273417595473,
+      "Relaxation/casual": 0.16901512414998116,
+      "Social/friends": 0.046692135491688595,
+      "Story/immersion": 0.21448524536651822
+    },
+    "gamer_type": {
+      "Casual": -0.4206989564151091,
+      "Competitive": 0.5595066608488422,
+      "Social": 0.13723307098723342,
+      "Story-focused": -0.2691710045887328
+    },
+    "cloud_gaming_used": {
+      "No": -0.30253047145316625,
+      "Yes": 0.3094002422853988
+    },
+    "ai_features_used": {
+      "No": -0.27448269774017575,
+      "Yes": 0.2813524685724084
+    }
+  },
+  "modelsAvailable": [
+    {
+      "name": "Random Forest Classifier",
+      "file": "random_forest_model.pkl",
+      "url": "/models/random_forest_model.pkl",
+      "description": "Ensemble of 100 balanced decision trees (Gini impurity)",
+      "accuracy": 0.5122,
+      "macroF1": 0.4875
+    },
+    {
+      "name": "Logistic Regression",
+      "file": "logistic_regression_model.pkl",
+      "url": "/models/logistic_regression_model.pkl",
+      "description": "L2-regularized logistic regression with balanced class weights",
+      "accuracy": 0.7073,
+      "macroF1": 0.7071
+    }
+  ]
+}

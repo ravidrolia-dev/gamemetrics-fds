@@ -1,0 +1,241 @@
+{
+  "targetDistribution": {
+    "noSwitch": 92,
+    "planSwitch": 113
+  },
+  "trainTestSplit": {
+    "trainN": 164,
+    "testN": 41,
+    "splitRatio": "80/20",
+    "stratified": true
+  },
+  "models": [
+    {
+      "name": "Majority Baseline",
+      "accuracy": 0.561,
+      "precision": 0.561,
+      "recall": 1.0,
+      "f1": 0.7188,
+      "macroF1": 0.3594,
+      "cvMacroF1Mean": 0.3544,
+      "cvMacroF1Std": 0.0028,
+      "confusionMatrix": [
+        [
+          0,
+          18
+        ],
+        [
+          0,
+          23
+        ]
+      ],
+      "perClassMetrics": {
+        "0": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 18
+        },
+        "1": {
+          "precision": 0.561,
+          "recall": 1.0,
+          "f1": 0.7188,
+          "support": 23
+        }
+      }
+    },
+    {
+      "name": "Logistic Regression",
+      "accuracy": 0.7073,
+      "precision": 0.7895,
+      "recall": 0.6522,
+      "f1": 0.7143,
+      "macroF1": 0.7071,
+      "cvMacroF1Mean": 0.593,
+      "cvMacroF1Std": 0.0569,
+      "confusionMatrix": [
+        [
+          14,
+          4
+        ],
+        [
+          8,
+          15
+        ]
+      ],
+      "perClassMetrics": {
+        "0": {
+          "precision": 0.6364,
+          "recall": 0.7778,
+          "f1": 0.7,
+          "support": 18
+        },
+        "1": {
+          "precision": 0.7895,
+          "recall": 0.6522,
+          "f1": 0.7143,
+          "support": 23
+        }
+      }
+    },
+    {
+      "name": "Random Forest",
+      "accuracy": 0.5122,
+      "precision": 0.5556,
+      "recall": 0.6522,
+      "f1": 0.6,
+      "macroF1": 0.4875,
+      "cvMacroF1Mean": 0.6682,
+      "cvMacroF1Std": 0.0751,
+      "confusionMatrix": [
+        [
+          6,
+          12
+        ],
+        [
+          8,
+          15
+        ]
+      ],
+      "perClassMetrics": {
+        "0": {
+          "precision": 0.4286,
+          "recall": 0.3333,
+          "f1": 0.375,
+          "support": 18
+        },
+        "1": {
+          "precision": 0.5556,
+          "recall": 0.6522,
+          "f1": 0.6,
+          "support": 23
+        }
+      }
+    }
+  ],
+  "featureImportance": [
+    {
+      "feature": "Years Gaming",
+      "importance": 0.1014
+    },
+    {
+      "feature": "Current Platform",
+      "importance": 0.0903
+    },
+    {
+      "feature": "Age",
+      "importance": 0.0767
+    },
+    {
+      "feature": "First Platform",
+      "importance": 0.0703
+    },
+    {
+      "feature": "Weekend Hours",
+      "importance": 0.0665
+    },
+    {
+      "feature": "Weekday Hours",
+      "importance": 0.0655
+    },
+    {
+      "feature": "Gaming Frequency",
+      "importance": 0.0638
+    },
+    {
+      "feature": "Gender",
+      "importance": 0.0556
+    },
+    {
+      "feature": "Tech Openness",
+      "importance": 0.0547
+    },
+    {
+      "feature": "Gamer Type",
+      "importance": 0.0476
+    },
+    {
+      "feature": "Willingness to Improve",
+      "importance": 0.0463
+    },
+    {
+      "feature": "Cloud Interest",
+      "importance": 0.0428
+    }
+  ],
+  "targetDefinition": {
+    "label": "Plans to Switch Platform",
+    "classes": [
+      "No switch (0)",
+      "Plans to switch (1)"
+    ],
+    "mapping": "Future platform == 'No plans to switch' -> class 0; any other response -> class 1"
+  },
+  "limitations": [
+    "Only 205 respondents; exploratory and uncertain.",
+    "Test set ~41 respondents; metrics have high variance.",
+    "Class imbalance handled with balanced class weights.",
+    "Survey self-report bias applies.",
+    "5-fold stratified CV on training set only.",
+    "For demonstration only; not suitable for deployment decisions."
+  ],
+  "cvFolds": 5,
+  "randomState": 42,
+  "formOptions": {
+    "Gender": [
+      "Female",
+      "Male",
+      "Other",
+      "Prefer not to say"
+    ],
+    "Occupation": [
+      "Other",
+      "Student",
+      "Working professional"
+    ],
+    "First Platform": [
+      "Console",
+      "Gaming Center",
+      "Mobile",
+      "Other",
+      "PC"
+    ],
+    "Current Platform": [
+      "Console",
+      "Mobile",
+      "Other",
+      "PC"
+    ],
+    "Experience Level": [
+      "Beginner",
+      "Experienced",
+      "Intermediate"
+    ],
+    "Gaming Frequency": [
+      "Daily",
+      "Few times a week",
+      "Occasionally",
+      "Weekly"
+    ],
+    "Motivation": [
+      "Competitive/skill",
+      "Relaxation/casual",
+      "Social/friends",
+      "Story/immersion"
+    ],
+    "Gamer Type": [
+      "Casual",
+      "Competitive",
+      "Social",
+      "Story-focused"
+    ],
+    "Cloud Gaming Used": [
+      "No",
+      "Yes"
+    ],
+    "AI Features Used": [
+      "No",
+      "Yes"
+    ]
+  }
+}

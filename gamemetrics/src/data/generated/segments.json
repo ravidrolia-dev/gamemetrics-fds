@@ -1,0 +1,231 @@
+{
+  "diagnostics": {
+    "kRange": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "inertias": [
+      1844.12,
+      1667.93,
+      1515.65,
+      1400.54,
+      1332.63
+    ],
+    "silhouettes": [
+      0.172,
+      0.1455,
+      0.1422,
+      0.1304,
+      0.1294
+    ],
+    "bestK": 2,
+    "bestKSilhouette": 0.172
+  },
+  "profiles": [
+    {
+      "cluster": 0,
+      "name": "High-Engagement, Tech-Open Gamers",
+      "size": 127,
+      "means": {
+        "Weekday Hours": 2.63,
+        "Weekend Hours": 4.43,
+        "Feat: Gameplay": 4.28,
+        "Feat: Story": 3.87,
+        "Feat: Graphics": 4.02,
+        "Feat: Competition": 3.65,
+        "Feat: Social": 3.38,
+        "Willingness to Improve": 3.63,
+        "Cloud Interest": 2.86,
+        "Tech Openness": 3.77,
+        "Gaming Importance": 2.91
+      },
+      "platformDist": [
+        {
+          "category": "PC",
+          "count": 69,
+          "percent": 54.3
+        },
+        {
+          "category": "Mobile",
+          "count": 36,
+          "percent": 28.3
+        },
+        {
+          "category": "Console",
+          "count": 19,
+          "percent": 15.0
+        },
+        {
+          "category": "Other",
+          "count": 3,
+          "percent": 2.4
+        }
+      ],
+      "occupationDist": [
+        {
+          "category": "Student",
+          "count": 92,
+          "percent": 72.4
+        },
+        {
+          "category": "Working professional",
+          "count": 28,
+          "percent": 22.0
+        },
+        {
+          "category": "Other",
+          "count": 7,
+          "percent": 5.5
+        }
+      ],
+      "gamerTypeDist": [
+        {
+          "category": "Casual",
+          "count": 70,
+          "percent": 55.1
+        },
+        {
+          "category": "Story-focused",
+          "count": 25,
+          "percent": 19.7
+        },
+        {
+          "category": "Competitive",
+          "count": 20,
+          "percent": 15.7
+        },
+        {
+          "category": "Social",
+          "count": 12,
+          "percent": 9.4
+        }
+      ],
+      "weeklyHoursMean": 22.02,
+      "techOpennessMean": 3.77,
+      "cloudInterestMean": 2.86
+    },
+    {
+      "cluster": 1,
+      "name": "Moderate Gamers, Mainstream",
+      "size": 78,
+      "means": {
+        "Weekday Hours": 2.08,
+        "Weekend Hours": 4.28,
+        "Feat: Gameplay": 3.47,
+        "Feat: Story": 3.18,
+        "Feat: Graphics": 2.35,
+        "Feat: Competition": 2.1,
+        "Feat: Social": 1.63,
+        "Willingness to Improve": 2.38,
+        "Cloud Interest": 1.55,
+        "Tech Openness": 2.82,
+        "Gaming Importance": 2.45
+      },
+      "platformDist": [
+        {
+          "category": "PC",
+          "count": 47,
+          "percent": 60.3
+        },
+        {
+          "category": "Mobile",
+          "count": 18,
+          "percent": 23.1
+        },
+        {
+          "category": "Console",
+          "count": 10,
+          "percent": 12.8
+        },
+        {
+          "category": "Other",
+          "count": 3,
+          "percent": 3.8
+        }
+      ],
+      "occupationDist": [
+        {
+          "category": "Student",
+          "count": 48,
+          "percent": 61.5
+        },
+        {
+          "category": "Working professional",
+          "count": 20,
+          "percent": 25.6
+        },
+        {
+          "category": "Other",
+          "count": 10,
+          "percent": 12.8
+        }
+      ],
+      "gamerTypeDist": [
+        {
+          "category": "Casual",
+          "count": 47,
+          "percent": 60.3
+        },
+        {
+          "category": "Story-focused",
+          "count": 22,
+          "percent": 28.2
+        },
+        {
+          "category": "Competitive",
+          "count": 6,
+          "percent": 7.7
+        },
+        {
+          "category": "Social",
+          "count": 3,
+          "percent": 3.8
+        }
+      ],
+      "weeklyHoursMean": 18.97,
+      "techOpennessMean": 2.82,
+      "cloudInterestMean": 1.55
+    }
+  ],
+  "hoursByCluster": [
+    {
+      "cluster": 0,
+      "name": "High-Engagement, Tech-Open Gamers",
+      "mean": 22.02,
+      "median": 16.0,
+      "min": 0.0,
+      "max": 110.0
+    },
+    {
+      "cluster": 1,
+      "name": "Moderate Gamers, Mainstream",
+      "mean": 18.97,
+      "median": 15.75,
+      "min": 0.0,
+      "max": 105.0
+    }
+  ],
+  "featureNames": [
+    "Weekday Hours",
+    "Weekend Hours",
+    "Feat: Gameplay",
+    "Feat: Story",
+    "Feat: Graphics",
+    "Feat: Competition",
+    "Feat: Social",
+    "Willingness to Improve",
+    "Cloud Interest",
+    "Tech Openness",
+    "Gaming Importance"
+  ],
+  "notes": [
+    "K-Means clustering is exploratory; results may change with different settings.",
+    "Features were standardized before clustering.",
+    "Cluster IDs are arbitrary, not rankings.",
+    "Best k=2 selected by highest silhouette score (k=2..6).",
+    "n=205 respondents included."
+  ]
+}

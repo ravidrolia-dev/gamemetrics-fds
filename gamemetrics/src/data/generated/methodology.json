@@ -1,0 +1,82 @@
+{
+  "datasetSource": "Primary survey via Google Forms (Sep 2026)",
+  "totalResponses": 206,
+  "analysisRows": 205,
+  "excludedRows": 1,
+  "exclusionReason": "Age=100 respondent excluded; could not be verified. Raw response preserved in source workbook.",
+  "flaggedRows": 6,
+  "flaggingReason": "Six respondents had inconsistent switching reasons; set to missing, Yes/No answer retained.",
+  "derivedVariables": [
+    {
+      "name": "Estimated Weekly Gaming Hours",
+      "formula": "Weekday hours x 5 + Weekend hours x 2",
+      "note": "Assumes reported values represent a typical day."
+    },
+    {
+      "name": "Switch Intent (Model Target)",
+      "formula": "Future platform != 'No plans to switch' -> 1; else -> 0",
+      "note": "Binary prediction target."
+    }
+  ],
+  "statisticalMethods": [
+    "Pearson chi-square with Monte Carlo p-values for sparse tables",
+    "Spearman rank correlation for ordinal associations",
+    "Kruskal-Wallis test for group comparisons",
+    "Mann-Whitney U test for two-group ordinal comparisons",
+    "Holm step-down correction across 13 simultaneous tests",
+    "Cramer's V and rank-biserial correlation as effect sizes",
+    "Winsorization at 95th percentile for sensitivity analysis only"
+  ],
+  "mlMethods": [
+    "DummyClassifier (majority-class baseline)",
+    "Logistic Regression with balanced class weights",
+    "Random Forest with balanced class weights",
+    "Stratified 80/20 train-test split",
+    "Stratified 5-fold cross-validation on training set",
+    "OneHotEncoder for nominal features (no LabelEncoder)",
+    "StandardScaler for numeric features",
+    "Pipeline to prevent data leakage"
+  ],
+  "clusteringMethods": [
+    "K-Means with standardized features",
+    "Silhouette score and inertia for k selection (k=2..6)",
+    "Cluster profiles computed as per-cluster means"
+  ],
+  "limitations": [
+    "N=205 is a small convenience sample; not generalisable.",
+    "Self-reported survey data; subject to recall bias.",
+    "Cross-sectional; causation cannot be inferred.",
+    "Cloud Gaming (n=5) and AI-driven (n=4) categories too small for reliable inference.",
+    "Weekly hours are derived, not directly measured.",
+    "ML test set (~41 respondents) has high metric variance.",
+    "Genre Rise data are mentions per respondent (up to 2), not unique respondents."
+  ],
+  "privacyStatement": "No individual respondent records are exposed. Only aggregate statistics, crosstabs, cluster profiles, and model metrics are published. Source workbooks excluded from repository.",
+  "missingness": [
+    {
+      "column": "If yes, what was the main reason for switching? (Select \"Not applicable\" if you have not switched)",
+      "missingCount": 6,
+      "missingPercent": 2.9
+    },
+    {
+      "column": "What do you expect gaming to look like in 5 years? (optional)",
+      "missingCount": 132,
+      "missingPercent": 64.4
+    },
+    {
+      "column": "Which game genre/type do you play MOST currently?",
+      "missingCount": 6,
+      "missingPercent": 2.9
+    },
+    {
+      "column": "Which of these do you think will become MORE popular in the next 5 years? (select up to 2)",
+      "missingCount": 14,
+      "missingPercent": 6.8
+    },
+    {
+      "column": "Which genre/type do you think will decline in popularity? (optional)",
+      "missingCount": 22,
+      "missingPercent": 10.7
+    }
+  ]
+}

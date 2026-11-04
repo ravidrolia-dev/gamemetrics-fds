@@ -1,0 +1,256 @@
+{
+  "currentGenreDist": [
+    {
+      "category": "RPG",
+      "count": 35,
+      "percent": 17.6
+    },
+    {
+      "category": "Action",
+      "count": 34,
+      "percent": 17.1
+    },
+    {
+      "category": "Sandbox/Open-world",
+      "count": 27,
+      "percent": 13.6
+    },
+    {
+      "category": "Simulation",
+      "count": 21,
+      "percent": 10.6
+    },
+    {
+      "category": "Strategy",
+      "count": 18,
+      "percent": 9.0
+    },
+    {
+      "category": "Puzzle",
+      "count": 17,
+      "percent": 8.5
+    },
+    {
+      "category": "Battle Royale",
+      "count": 16,
+      "percent": 8.0
+    },
+    {
+      "category": "Sports",
+      "count": 13,
+      "percent": 6.5
+    },
+    {
+      "category": "Other",
+      "count": 11,
+      "percent": 5.5
+    },
+    {
+      "category": "Horror",
+      "count": 7,
+      "percent": 3.5
+    }
+  ],
+  "risingGenres": [
+    {
+      "genre": "AI-generated/procedural games",
+      "count": 61
+    },
+    {
+      "genre": "VR/AR immersive games",
+      "count": 46
+    },
+    {
+      "genre": "RPG",
+      "count": 36
+    },
+    {
+      "genre": "Action",
+      "count": 30
+    },
+    {
+      "genre": "Sandbox/Open-world",
+      "count": 27
+    },
+    {
+      "genre": "Simulation",
+      "count": 26
+    },
+    {
+      "genre": "Horror",
+      "count": 24
+    },
+    {
+      "genre": "Battle Royale",
+      "count": 22
+    },
+    {
+      "genre": "Hyper-casual mobile",
+      "count": 17
+    },
+    {
+      "genre": "Narrative-driven single-player",
+      "count": 13
+    },
+    {
+      "genre": "Sports",
+      "count": 12
+    },
+    {
+      "genre": "Strategy",
+      "count": 12
+    },
+    {
+      "genre": "Puzzle",
+      "count": 11
+    },
+    {
+      "genre": "Live-service multiplayern 12",
+      "count": 11
+    }
+  ],
+  "declineGenres": [
+    {
+      "category": "Puzzle",
+      "count": 44,
+      "percent": 24.0
+    },
+    {
+      "category": "Battle Royale",
+      "count": 32,
+      "percent": 17.5
+    },
+    {
+      "category": "Sports",
+      "count": 28,
+      "percent": 15.3
+    },
+    {
+      "category": "Strategy",
+      "count": 17,
+      "percent": 9.3
+    },
+    {
+      "category": "Other",
+      "count": 17,
+      "percent": 9.3
+    },
+    {
+      "category": "Horror",
+      "count": 10,
+      "percent": 5.5
+    },
+    {
+      "category": "Action",
+      "count": 10,
+      "percent": 5.5
+    },
+    {
+      "category": "RPG",
+      "count": 10,
+      "percent": 5.5
+    },
+    {
+      "category": "Simulation",
+      "count": 9,
+      "percent": 4.9
+    },
+    {
+      "category": "Sandbox/Open-world",
+      "count": 6,
+      "percent": 3.3
+    }
+  ],
+  "ageCohortComparison": [
+    {
+      "genre": "Action",
+      "under22": 29.0,
+      "22plus": 6.2,
+      "diff": 22.8,
+      "under22_n": 27,
+      "22plus_n": 7
+    },
+    {
+      "genre": "RPG",
+      "under22": 4.3,
+      "22plus": 27.7,
+      "diff": -23.4,
+      "under22_n": 4,
+      "22plus_n": 31
+    },
+    {
+      "genre": "Sandbox/Open-world",
+      "under22": 12.9,
+      "22plus": 13.4,
+      "diff": -0.5,
+      "under22_n": 12,
+      "22plus_n": 15
+    },
+    {
+      "genre": "Battle Royale",
+      "under22": 10.8,
+      "22plus": 5.4,
+      "diff": 5.4,
+      "under22_n": 10,
+      "22plus_n": 6
+    },
+    {
+      "genre": "Strategy",
+      "under22": 8.6,
+      "22plus": 8.9,
+      "diff": -0.3,
+      "under22_n": 8,
+      "22plus_n": 10
+    },
+    {
+      "genre": "Simulation",
+      "under22": 6.5,
+      "22plus": 13.4,
+      "diff": -6.9,
+      "under22_n": 6,
+      "22plus_n": 15
+    },
+    {
+      "genre": "Puzzle",
+      "under22": 9.7,
+      "22plus": 7.1,
+      "diff": 2.6,
+      "under22_n": 9,
+      "22plus_n": 8
+    },
+    {
+      "genre": "Sports",
+      "under22": 9.7,
+      "22plus": 3.6,
+      "diff": 6.1,
+      "under22_n": 9,
+      "22plus_n": 4
+    },
+    {
+      "genre": "Horror",
+      "under22": 1.1,
+      "22plus": 5.4,
+      "diff": -4.3,
+      "under22_n": 1,
+      "22plus_n": 6
+    },
+    {
+      "genre": "Other",
+      "under22": 3.2,
+      "22plus": 7.1,
+      "diff": -3.9,
+      "under22_n": 3,
+      "22plus_n": 8
+    }
+  ],
+  "cohortSizes": {
+    "under22": 93,
+    "22plus": 112
+  },
+  "notes": [
+    "Cross-sectional cohort comparison, not a time-series forecast.",
+    "Age cohorts: under 22 (ages 14-21) vs 22 and over.",
+    "Rising/declining genre data reflect respondent expectations, not observed trends.",
+    "Genre Rise allows up to 2 choices; counts are mentions, not unique respondents."
+  ]
+}

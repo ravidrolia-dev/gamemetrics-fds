@@ -1,0 +1,351 @@
+{
+  "firstVsCurrent": {
+    "rows": [
+      {
+        "name": "Console",
+        "values": [
+          20,
+          7,
+          0,
+          46
+        ]
+      },
+      {
+        "name": "Gaming Center",
+        "values": [
+          0,
+          1,
+          0,
+          2
+        ]
+      },
+      {
+        "name": "Mobile",
+        "values": [
+          5,
+          39,
+          5,
+          35
+        ]
+      },
+      {
+        "name": "Other",
+        "values": [
+          2,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "PC",
+        "values": [
+          2,
+          7,
+          1,
+          32
+        ]
+      }
+    ],
+    "columns": [
+      "Console",
+      "Mobile",
+      "Other",
+      "PC"
+    ]
+  },
+  "switchReasons": [
+    {
+      "category": "Game availability",
+      "count": 56,
+      "percent": 39.7
+    },
+    {
+      "category": "Better graphics",
+      "count": 29,
+      "percent": 20.6
+    },
+    {
+      "category": "Other",
+      "count": 24,
+      "percent": 17.0
+    },
+    {
+      "category": "Portability",
+      "count": 14,
+      "percent": 9.9
+    },
+    {
+      "category": "Friends",
+      "count": 13,
+      "percent": 9.2
+    },
+    {
+      "category": "Cost",
+      "count": 5,
+      "percent": 3.5
+    }
+  ],
+  "currVsFuture": {
+    "rows": [
+      {
+        "name": "Console",
+        "values": [
+          0,
+          0,
+          7,
+          1,
+          11,
+          10
+        ]
+      },
+      {
+        "name": "Mobile",
+        "values": [
+          2,
+          3,
+          8,
+          12,
+          10,
+          19
+        ]
+      },
+      {
+        "name": "Other",
+        "values": [
+          0,
+          0,
+          1,
+          1,
+          4,
+          0
+        ]
+      },
+      {
+        "name": "PC",
+        "values": [
+          2,
+          2,
+          17,
+          3,
+          67,
+          25
+        ]
+      }
+    ],
+    "columns": [
+      "AI-driven platforms",
+      "Cloud Gaming",
+      "Console",
+      "Mobile",
+      "No plans to switch",
+      "PC"
+    ]
+  },
+  "futurePlatDist": [
+    {
+      "category": "No plans to switch",
+      "count": 92,
+      "percent": 44.9
+    },
+    {
+      "category": "PC",
+      "count": 54,
+      "percent": 26.3
+    },
+    {
+      "category": "Console",
+      "count": 33,
+      "percent": 16.1
+    },
+    {
+      "category": "Mobile",
+      "count": 17,
+      "percent": 8.3
+    },
+    {
+      "category": "Cloud Gaming",
+      "count": 5,
+      "percent": 2.4
+    },
+    {
+      "category": "AI-driven platforms",
+      "count": 4,
+      "percent": 2.0
+    }
+  ],
+  "switchByPlatform": [
+    {
+      "platform": "PC",
+      "yes": 94,
+      "no": 22,
+      "total": 116,
+      "switchedPct": 81.0
+    },
+    {
+      "platform": "Console",
+      "yes": 22,
+      "no": 7,
+      "total": 29,
+      "switchedPct": 75.9
+    },
+    {
+      "platform": "Mobile",
+      "yes": 22,
+      "no": 32,
+      "total": 54,
+      "switchedPct": 40.7
+    },
+    {
+      "platform": "Other",
+      "yes": 3,
+      "no": 3,
+      "total": 6,
+      "switchedPct": 50.0
+    }
+  ],
+  "spendingByPlatform": [
+    {
+      "platform": "Console",
+      "₹0": 7,
+      "₹1-500": 12,
+      "₹500-1500": 6,
+      "₹1500-5000": 3,
+      "₹5000+": 1
+    },
+    {
+      "platform": "Mobile",
+      "₹0": 44,
+      "₹1-500": 7,
+      "₹500-1500": 2,
+      "₹1500-5000": 0,
+      "₹5000+": 1
+    },
+    {
+      "platform": "Other",
+      "₹0": 5,
+      "₹1-500": 0,
+      "₹500-1500": 0,
+      "₹1500-5000": 0,
+      "₹5000+": 1
+    },
+    {
+      "platform": "PC",
+      "₹0": 40,
+      "₹1-500": 44,
+      "₹500-1500": 18,
+      "₹1500-5000": 13,
+      "₹5000+": 1
+    }
+  ],
+  "spendingCategories": [
+    "₹0",
+    "₹1-500",
+    "₹500-1500",
+    "₹1500-5000",
+    "₹5000+"
+  ],
+  "hoursByPlatform": [
+    {
+      "platform": "Console",
+      "mean": 21.53,
+      "median": 14.5,
+      "n": 29
+    },
+    {
+      "platform": "Mobile",
+      "mean": 14.49,
+      "median": 11.0,
+      "n": 54
+    },
+    {
+      "platform": "Other",
+      "mean": 24.83,
+      "median": 12.0,
+      "n": 6
+    },
+    {
+      "platform": "PC",
+      "mean": 23.45,
+      "median": 18.0,
+      "n": 116
+    }
+  ],
+  "sankeyLinks": [
+    {
+      "source": "Console",
+      "target": "Console",
+      "value": 20
+    },
+    {
+      "source": "Console",
+      "target": "Mobile",
+      "value": 7
+    },
+    {
+      "source": "Console",
+      "target": "PC",
+      "value": 46
+    },
+    {
+      "source": "Gaming Center",
+      "target": "Mobile",
+      "value": 1
+    },
+    {
+      "source": "Gaming Center",
+      "target": "PC",
+      "value": 2
+    },
+    {
+      "source": "Mobile",
+      "target": "Console",
+      "value": 5
+    },
+    {
+      "source": "Mobile",
+      "target": "Mobile",
+      "value": 39
+    },
+    {
+      "source": "Mobile",
+      "target": "Other",
+      "value": 5
+    },
+    {
+      "source": "Mobile",
+      "target": "PC",
+      "value": 35
+    },
+    {
+      "source": "Other",
+      "target": "Console",
+      "value": 2
+    },
+    {
+      "source": "Other",
+      "target": "PC",
+      "value": 1
+    },
+    {
+      "source": "PC",
+      "target": "Console",
+      "value": 2
+    },
+    {
+      "source": "PC",
+      "target": "Mobile",
+      "value": 7
+    },
+    {
+      "source": "PC",
+      "target": "Other",
+      "value": 1
+    },
+    {
+      "source": "PC",
+      "target": "PC",
+      "value": 32
+    }
+  ]
+}

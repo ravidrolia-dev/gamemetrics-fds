@@ -1,0 +1,303 @@
+{
+  "kpis": {
+    "totalRespondents": 205,
+    "meanAge": 24.47,
+    "mostCommonPlatform": "PC",
+    "mostCommonPlatformCount": 116,
+    "switchedCount": 141,
+    "switchedPercent": 68.8,
+    "meanWeeklyHours": 20.86,
+    "zeroSpendCount": 96,
+    "zeroSpendPercent": 46.8
+  },
+  "currentPlatformDist": [
+    {
+      "category": "PC",
+      "count": 116,
+      "percent": 56.6
+    },
+    {
+      "category": "Mobile",
+      "count": 54,
+      "percent": 26.3
+    },
+    {
+      "category": "Console",
+      "count": 29,
+      "percent": 14.1
+    },
+    {
+      "category": "Other",
+      "count": 6,
+      "percent": 2.9
+    }
+  ],
+  "firstPlatformDist": [
+    {
+      "category": "Mobile",
+      "count": 84,
+      "percent": 41.0
+    },
+    {
+      "category": "Console",
+      "count": 73,
+      "percent": 35.6
+    },
+    {
+      "category": "PC",
+      "count": 42,
+      "percent": 20.5
+    },
+    {
+      "category": "Other",
+      "count": 3,
+      "percent": 1.5
+    },
+    {
+      "category": "Gaming Center",
+      "count": 3,
+      "percent": 1.5
+    }
+  ],
+  "experienceDist": [
+    {
+      "category": "Intermediate",
+      "count": 98,
+      "percent": 47.8
+    },
+    {
+      "category": "Experienced",
+      "count": 71,
+      "percent": 34.6
+    },
+    {
+      "category": "Beginner",
+      "count": 36,
+      "percent": 17.6
+    }
+  ],
+  "frequencyDist": [
+    {
+      "category": "Few times a week",
+      "count": 86,
+      "percent": 42.0
+    },
+    {
+      "category": "Daily",
+      "count": 62,
+      "percent": 30.2
+    },
+    {
+      "category": "Occasionally",
+      "count": 46,
+      "percent": 22.4
+    },
+    {
+      "category": "Weekly",
+      "count": 11,
+      "percent": 5.4
+    }
+  ],
+  "motivationDist": [
+    {
+      "category": "Relaxation/casual",
+      "count": 111,
+      "percent": 54.1
+    },
+    {
+      "category": "Story/immersion",
+      "count": 40,
+      "percent": 19.5
+    },
+    {
+      "category": "Social/friends",
+      "count": 40,
+      "percent": 19.5
+    },
+    {
+      "category": "Competitive/skill",
+      "count": 14,
+      "percent": 6.8
+    }
+  ],
+  "cloudAdoption": [
+    {
+      "category": "No",
+      "count": 154,
+      "percent": 75.1
+    },
+    {
+      "category": "Yes",
+      "count": 51,
+      "percent": 24.9
+    }
+  ],
+  "aiAdoption": [
+    {
+      "category": "No",
+      "count": 161,
+      "percent": 78.5
+    },
+    {
+      "category": "Yes",
+      "count": 44,
+      "percent": 21.5
+    }
+  ],
+  "gamerTypeDist": [
+    {
+      "category": "Casual",
+      "count": 117,
+      "percent": 57.1
+    },
+    {
+      "category": "Story-focused",
+      "count": 47,
+      "percent": 22.9
+    },
+    {
+      "category": "Competitive",
+      "count": 26,
+      "percent": 12.7
+    },
+    {
+      "category": "Social",
+      "count": 15,
+      "percent": 7.3
+    }
+  ],
+  "genderDist": [
+    {
+      "category": "Male",
+      "count": 100,
+      "percent": 48.8
+    },
+    {
+      "category": "Female",
+      "count": 88,
+      "percent": 42.9
+    },
+    {
+      "category": "Other",
+      "count": 15,
+      "percent": 7.3
+    },
+    {
+      "category": "Prefer not to say",
+      "count": 2,
+      "percent": 1.0
+    }
+  ],
+  "occupationDist": [
+    {
+      "category": "Student",
+      "count": 140,
+      "percent": 68.3
+    },
+    {
+      "category": "Working professional",
+      "count": 48,
+      "percent": 23.4
+    },
+    {
+      "category": "Other",
+      "count": 17,
+      "percent": 8.3
+    }
+  ],
+  "weekdayHours": {
+    "mean": 2.42,
+    "median": 2.0
+  },
+  "weekendHours": {
+    "mean": 4.37,
+    "median": 4.0
+  },
+  "spendingDist": [
+    {
+      "category": "₹0",
+      "count": 96,
+      "percent": 46.8
+    },
+    {
+      "category": "₹1-500",
+      "count": 63,
+      "percent": 30.7
+    },
+    {
+      "category": "₹500-1500",
+      "count": 26,
+      "percent": 12.7
+    },
+    {
+      "category": "₹1500-5000",
+      "count": 16,
+      "percent": 7.8
+    },
+    {
+      "category": "₹5000+",
+      "count": 4,
+      "percent": 2.0
+    }
+  ],
+  "weekdayHoursDist": [
+    {
+      "hours": "0",
+      "count": 34
+    },
+    {
+      "hours": "1",
+      "count": 62
+    },
+    {
+      "hours": "2",
+      "count": 58
+    },
+    {
+      "hours": "3-4",
+      "count": 27
+    },
+    {
+      "hours": "5-7",
+      "count": 11
+    },
+    {
+      "hours": "8-11",
+      "count": 6
+    },
+    {
+      "hours": "12+",
+      "count": 7
+    }
+  ],
+  "weekendHoursDist": [
+    {
+      "hours": "0",
+      "count": 16
+    },
+    {
+      "hours": "1",
+      "count": 23
+    },
+    {
+      "hours": "2",
+      "count": 29
+    },
+    {
+      "hours": "3-4",
+      "count": 61
+    },
+    {
+      "hours": "5-7",
+      "count": 47
+    },
+    {
+      "hours": "8-11",
+      "count": 21
+    },
+    {
+      "hours": "12+",
+      "count": 8
+    }
+  ]
+}
