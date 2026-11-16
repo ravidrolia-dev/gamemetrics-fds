@@ -221,14 +221,14 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
     const numWeights = trainedInference.numericWeights;
 
     const numInputs: Record<string, number> = {
-      age: parseFloat(formState["Age"] || "21"),
-      years_gaming: parseFloat(formState["Years Gaming"] || "8"),
-      weekday_hours: parseFloat(formState["Weekday Hours"] || "3"),
-      weekend_hours: parseFloat(formState["Weekend Hours"] || "5"),
-      gaming_importance: parseFloat(formState["Gaming Importance"] || "4"),
-      willingness_to_improve: parseFloat(formState["Willingness to Improve"] || "4"),
-      cloud_interest: parseFloat(formState["Cloud Interest"] || "3"),
-      tech_openness: parseFloat(formState["Tech Openness"] || "4"),
+      age: parseFloat(formState["Age"] ?? "") || 21,
+      years_gaming: parseFloat(formState["Years Gaming"] ?? "") || 8,
+      weekday_hours: parseFloat(formState["Weekday Hours"] ?? "") || 3,
+      weekend_hours: parseFloat(formState["Weekend Hours"] ?? "") || 5,
+      gaming_importance: parseFloat(formState["Gaming Importance"] ?? "") || 4,
+      willingness_to_improve: parseFloat(formState["Willingness to Improve"] ?? "") || 4,
+      cloud_interest: parseFloat(formState["Cloud Interest"] ?? "") || 3,
+      tech_openness: parseFloat(formState["Tech Openness"] ?? "") || 4,
     };
 
     for (const [key, val] of Object.entries(numInputs)) {
@@ -331,6 +331,101 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
     "Gamer Type": data.formOptions["Gamer Type"] || ["Casual gamer", "Competitive gamer", "Hardcore gamer", "Social gamer"],
   };
 
+  const numericFields = [
+    { label: "Age", key: "Age", min: 14, max: 80, step: 1, placeholder: "21", hint: "Years (14-80)" },
+    { label: "Years Gaming", key: "Years Gaming", min: 0, max: 40, step: 1, placeholder: "8", hint: "Total years (0-40)" },
+    { label: "Weekday Hours", key: "Weekday Hours", min: 0, max: 24, step: 0.5, placeholder: "3.0", hint: "hrs/day (0-24)" },
+    { label: "Weekend Hours", key: "Weekend Hours", min: 0, max: 24, step: 0.5, placeholder: "5.0", hint: "hrs/day (0-24)" },
+    { label: "Gaming Importance", key: "Gaming Importance", min: 1, max: 5, step: 1, placeholder: "4", hint: "Scale (1-5)" },
+    { label: "Willingness to Improve", key: "Willingness to Improve", min: 1, max: 5, step: 1, placeholder: "4", hint: "Scale (1-5)" },
+    { label: "Tech Openness", key: "Tech Openness", min: 1, max: 5, step: 1, placeholder: "4", hint: "Scale (1-5)" },
+    { label: "Cloud Interest", key: "Cloud Interest", min: 1, max: 5, step: 1, placeholder: "3", hint: "Scale (1-5)" },
+  ];
+
+  const applyPreset = (preset: "default" | "pc" | "console" | "mobile") => {
+    if (preset === "pc") {
+      setFormState({
+        "Current Platform": "PC",
+        "First Platform": "PC",
+        "Experience Level": "Advanced",
+        "Gaming Frequency": "Daily",
+        "Cloud Gaming Used": "Yes",
+        "AI Features Used": "Yes",
+        "Gender": "Male",
+        "Occupation": "Working Professional",
+        "Gamer Type": "Competitive gamer",
+        "Age": "23",
+        "Years Gaming": "10",
+        "Weekday Hours": "4.5",
+        "Weekend Hours": "7.0",
+        "Gaming Importance": "5",
+        "Willingness to Improve": "5",
+        "Tech Openness": "5",
+        "Cloud Interest": "4",
+      });
+    } else if (preset === "console") {
+      setFormState({
+        "Current Platform": "Console",
+        "First Platform": "Console",
+        "Experience Level": "Intermediate",
+        "Gaming Frequency": "Few times a week",
+        "Cloud Gaming Used": "No",
+        "AI Features Used": "No",
+        "Gender": "Male",
+        "Occupation": "Working Professional",
+        "Gamer Type": "Casual gamer",
+        "Age": "25",
+        "Years Gaming": "8",
+        "Weekday Hours": "1.5",
+        "Weekend Hours": "3.0",
+        "Gaming Importance": "2",
+        "Willingness to Improve": "2",
+        "Tech Openness": "2",
+        "Cloud Interest": "1",
+      });
+    } else if (preset === "mobile") {
+      setFormState({
+        "Current Platform": "Mobile",
+        "First Platform": "Mobile",
+        "Experience Level": "Advanced",
+        "Gaming Frequency": "Daily",
+        "Cloud Gaming Used": "Yes",
+        "AI Features Used": "Yes",
+        "Gender": "Male",
+        "Occupation": "Student",
+        "Gamer Type": "Competitive gamer",
+        "Age": "20",
+        "Years Gaming": "6",
+        "Weekday Hours": "4.0",
+        "Weekend Hours": "6.0",
+        "Gaming Importance": "4",
+        "Willingness to Improve": "5",
+        "Tech Openness": "5",
+        "Cloud Interest": "4",
+      });
+    } else {
+      setFormState({
+        "Current Platform": "PC",
+        "First Platform": "Mobile",
+        "Experience Level": "Intermediate",
+        "Gaming Frequency": "Daily",
+        "Cloud Gaming Used": "No",
+        "AI Features Used": "No",
+        "Gender": "Male",
+        "Occupation": "Student",
+        "Gamer Type": "Competitive gamer",
+        "Age": "21",
+        "Years Gaming": "8",
+        "Weekday Hours": "3",
+        "Weekend Hours": "5",
+        "Gaming Importance": "4",
+        "Willingness to Improve": "4",
+        "Tech Openness": "4",
+        "Cloud Interest": "3",
+      });
+    }
+  };
+
   return (
     <div className="card bg-white border border-[#EAE3D6] p-6 rounded-xl shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#EAE3D6] gap-2 mb-4">
@@ -343,59 +438,96 @@ function ScikitLearnPredictor({ data }: { data: PredictionData }) {
             Stage 1: Logistic Regression log-odds for switch propensity. Stage 2: Multinomial Softmax predicting destination platform ($N=205$).
           </p>
         </div>
-        <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#FAF7F2] text-[#8C6D46] border border-[#E8DFD4] font-medium">
-          Stage 1 F1: {(trainedInference.macroF1 * 100).toFixed(1)}% | Stage 2 Accuracy: {(((trainedInference as any).destinationModel?.accuracy || 0.69) * 100).toFixed(1)}%
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#FAF7F2] text-[#8C6D46] border border-[#E8DFD4] font-medium">
+            Stage 1 F1: {(trainedInference.macroF1 * 100).toFixed(1)}% | Stage 2 Accuracy: {(((trainedInference as any).destinationModel?.accuracy || 0.69) * 100).toFixed(1)}%
+          </span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
-        {Object.entries(formFields).map(([label, options]) => (
-          <div key={label}>
-            <label className="text-xs text-[#73675E] font-medium block mb-1">{label}</label>
-            <select
-              value={formState[label] || options[0]}
-              onChange={e => setFormState(prev => ({ ...prev, [label]: e.target.value }))}
-              className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
-            >
-              {options.map(o => <option key={o} value={o}>{o}</option>)}
-            </select>
-          </div>
-        ))}
-        <div>
-          <label className="text-xs text-[#73675E] font-medium block mb-1">Age</label>
-          <input
-            type="number" min={14} max={60}
-            value={formState["Age"] || "21"}
-            onChange={e => setFormState(prev => ({ ...prev, "Age": e.target.value }))}
-            className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
-          />
+      {/* Preset Quick-Fill Toolbar */}
+      <div className="flex flex-wrap items-center gap-2 mb-4 pb-3 border-b border-[#F0E9DF]">
+        <span className="text-[11px] font-semibold text-[#73675E] uppercase tracking-wider mr-1">
+          Quick-Fill Presets:
+        </span>
+        <button
+          type="button"
+          onClick={() => applyPreset("mobile")}
+          className="text-xs px-2.5 py-1 rounded-lg bg-[#FAF5F6] hover:bg-[#F2E5E8] text-[#722F37] border border-[#E8CDD3] font-medium transition-colors"
+        >
+          📱 Mobile-First Upgrader
+        </button>
+        <button
+          type="button"
+          onClick={() => applyPreset("console")}
+          className="text-xs px-2.5 py-1 rounded-lg bg-[#FAF7F2] hover:bg-[#F4ECE0] text-[#8C6D46] border border-[#EAE3D6] font-medium transition-colors"
+        >
+          🎮 Casual Console Player
+        </button>
+        <button
+          type="button"
+          onClick={() => applyPreset("pc")}
+          className="text-xs px-2.5 py-1 rounded-lg bg-[#F5F8F6] hover:bg-[#E5EFE8] text-[#4E6853] border border-[#D3E2D5] font-medium transition-colors"
+        >
+          🖥️ Competitive PC Gamer
+        </button>
+        <button
+          type="button"
+          onClick={() => applyPreset("default")}
+          className="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-[#FAF7F2] text-[#73675E] border border-[#DDD3C3] transition-colors ml-auto"
+        >
+          Reset Baseline
+        </button>
+      </div>
+
+      {/* Categorical Dropdowns Section */}
+      <div className="mb-4">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#73675E] mb-2 flex items-center gap-1.5">
+          <span>Categorical Profile & Platform Attributes</span>
         </div>
-        <div>
-          <label className="text-xs text-[#73675E] font-medium block mb-1">Years Gaming</label>
-          <input
-            type="number" min={0} max={30}
-            value={formState["Years Gaming"] || "8"}
-            onChange={e => setFormState(prev => ({ ...prev, "Years Gaming": e.target.value }))}
-            className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
-          />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {Object.entries(formFields).map(([label, options]) => (
+            <div key={label}>
+              <label className="text-xs text-[#73675E] font-medium block mb-1">{label}</label>
+              <select
+                value={formState[label] || options[0]}
+                onChange={e => setFormState(prev => ({ ...prev, [label]: e.target.value }))}
+                className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
+              >
+                {options.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+          ))}
         </div>
-        <div>
-          <label className="text-xs text-[#73675E] font-medium block mb-1">Tech Openness (1-5)</label>
-          <input
-            type="number" min={1} max={5}
-            value={formState["Tech Openness"] || "4"}
-            onChange={e => setFormState(prev => ({ ...prev, "Tech Openness": e.target.value }))}
-            className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
-          />
+      </div>
+
+      {/* Numerical Inputs Section */}
+      <div className="mb-5 pt-3 border-t border-[#F0E9DF]">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#73675E] mb-2 flex items-center justify-between">
+          <span>Numerical Gaming Metrics & Technology Ratings (Editable)</span>
+          <span className="text-[10px] text-[#A69C94] font-normal">All 8 numerical features used by Scikit-Learn</span>
         </div>
-        <div>
-          <label className="text-xs text-[#73675E] font-medium block mb-1">Cloud Interest (1-5)</label>
-          <input
-            type="number" min={1} max={5}
-            value={formState["Cloud Interest"] || "3"}
-            onChange={e => setFormState(prev => ({ ...prev, "Cloud Interest": e.target.value }))}
-            className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
-          />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {numericFields.map((field) => (
+            <div key={field.key}>
+              <div className="flex items-center justify-between mb-1">
+                <label className="text-xs text-[#73675E] font-medium block truncate" title={field.label}>
+                  {field.label}
+                </label>
+                <span className="text-[9px] text-[#A69C94]">{field.hint}</span>
+              </div>
+              <input
+                type="number"
+                min={field.min}
+                max={field.max}
+                step={field.step}
+                placeholder={field.placeholder}
+                value={formState[field.key] ?? ""}
+                onChange={e => setFormState(prev => ({ ...prev, [field.key]: e.target.value }))}
+                className="w-full bg-white border border-[#DDD3C3] rounded-lg px-2.5 py-2 text-xs text-[#231C18] focus:border-[#722F37]"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
